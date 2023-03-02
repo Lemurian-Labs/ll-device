@@ -13,7 +13,7 @@ const httpsScheme = "https://"
 var rootCmd = &cobra.Command{
 	Use:   "lld",
 	Short: "Lemurian Labs Device cli",
-	Long:  "CLI for the Lemurian Labs device simulators and services",
+	Long:  "CLI for the Lemurian Labs device introspection",
 }
 
 func Execute() {
