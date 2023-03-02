@@ -1,3 +1,3 @@
-module github.com/lemurian-labs/ll-device-test
+module lemurian-labs/lld
 
 go 1.17

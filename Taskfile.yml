@@ -34,7 +34,7 @@ tasks:
     desc: Run all the tests
     deps: []
     cmds:
-    - go test github.com/Lemurian-Labs/ll-device-test/testbench
+    - go test github.com/Lemurian-Labs/lld/tests
 
   container:
     desc: Create a container with the Lemurian Labs device services

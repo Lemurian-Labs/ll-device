@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Lemurian-Labs/ll-device-test/cmd"
+	"github.com/lemurian-labs/lld/cmd"
 )
 
 // semver and commit are set by the build environment
