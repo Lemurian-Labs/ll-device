@@ -1,0 +1,49 @@
+version: '3'
+
+tasks:
+  compile:
+    desc: Compile the Lemurian Labs device CLI 
+    cmds:
+    - GOOS={{default OS .GOOS}} GOARCH={{default ARCH .GOARCH}} go build -ldflags '-X main.semver={{.SEMVER}} -X main.commit={{.COMMIT}} -X main.buildDate={{.BUILDDATE}}'
+    generates:
+    - lld{{exeExt}}
+    vars:
+      SEMVER:
+        sh: cat ./VERSION
+      COMMIT:
+        sh: git rev-parse --short HEAD
+      BUILDDATE:
+        sh: date --iso-8601=seconds
+
+  install:
+    desc: Compile and install the Lemurian Labs device CLI
+    deps: [compile]
+    cmds:
+    - GOOS={{default OS .GOOS}} GOARCH={{default ARCH .GOARCH}} go install -ldflags '-X main.semver={{.SEMVER}} -X main.commit={{.COMMIT}} -X main.buildDate={{.BUILDDATE}}'
+    generates:
+      - lld{{exeExt}}
+    vars:
+      SEMVER:
+        sh: cat ./VERSION
+      COMMIT:
+        sh: git rev-parse --short HEAD
+      BUILDDATE:
+        sh: date --iso-8601=seconds
+
+  test:
+    desc: Run all the tests
+    deps: []
+    cmds:
+    - go test github.com/Lemurian-Labs/ll-device-test/testbench
+
+  container:
+    desc: Create a container with the Lemurian Labs device services
+    cmds:
+    - docker build . --build-arg SEMVER={{.SEMVER}} --build-arg COMMIT={{.COMMIT}} --build-arg BUILDDATE={{.BUILDDATE}} --tag "lemurianlabs/lld:latest"
+    vars:
+      SEMVER:
+        sh: cat ./VERSION
+      COMMIT:
+        sh: git rev-parse --short HEAD
+      BUILDDATE:
+        sh: date --iso-8601=seconds
